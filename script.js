@@ -18,7 +18,14 @@ async function fetchRepos() {
     let repos = await response.json();
     
     // Sort by updated date
-    repos = repos.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at)); 
+    repos = repos.sort((a, b) => {
+        let dateA = new Date(a.updated_at);
+        let dateB = new Date(b.updated_at);
+
+        if(dateA > dateB) return -1;    
+        if(dateA < dateB) return 1;
+        return 0;
+    }); 
     
 
     // fetch readme also displays the repo
