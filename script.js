@@ -20,6 +20,7 @@ async function fetchRepos() {
     // Sort by updated date
     repos = repos.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at)); 
     
+
     // fetch readme also displays the repo
     repos.forEach(repo => fetchReadme(repo));
     
@@ -71,7 +72,7 @@ function displayRepo(repo, readmeURL) {
     
     // calculate the percentage of code in each language
     for (const language in languages) {
-        languageString += language + ':' + (languages[language]/languageCount).toFixed(0) * 100 + '% ';
+        languageString += language + ':' + ((languages[language]/languageCount) * 100).toFixed(2) + '% ';
     }
     
     // add the repo to the page
@@ -103,7 +104,7 @@ function showLanguageTags(languageTags) {
 
         // check if the language is already in the tagsContainer
         // if it is, skip it
-        if (tagsContainer.innerHTML.includes(language)) {
+        if (tagsContainer.innerHTML.includes(language) || language === 'Inno Setup') {
             continue;
         }
 
@@ -111,26 +112,36 @@ function showLanguageTags(languageTags) {
         languageButton.className = 'language-tag-button';
         languageButton.innerHTML = language;
 
+        // set button state
+        languageButton.setAttribute("data-active", "false");
 
-        // buttons should a radio buttons
-        // when clicked, they should highlight repos with the selected language and unhighlight all others  
 
         languageButton.addEventListener('click', () => {
             // use button state to highlight repos with the selected language
             // buttons should be toggled on and off and change the border color of the repos as well as the button color
             if (hightlightedLanguage === language) {       
-                languageButton.style.backgroundColor = 'var(--light-blue) !important';
                 removeLanguageHighlights(language);
                 unclickButton(language);
             }
             else {
-                languageButton.style.backgroundColor = 'red !important';        
                 clearAllHighlights();
                 clearAllButtons();
+
+                languageButton.setAttribute("data-active", "true");
                 highlightRepos(language);
             }
 
         });
+
+        // languageButton.addEventListener('mouseover', () => {
+        //     // highlight repos with the selected language
+        //     highlightRepos(language);
+        // });
+
+        // languageButton.addEventListener('mouseout', () => {
+        //     // remove highlights from repos with the selected language
+        //     removeLanguageHighlights(language);
+        // });
 
 
         console.log("made button");
@@ -147,10 +158,12 @@ function highlightRepos(language) {
         const languageString = repo.querySelector('p').innerText;
         if (languageString.includes(language)) {
             // set custom css variable 
-            repo.style.border = 'solid red';
+            //repo.style.border = 'solid red';
+            repo.setAttribute("data-highlight", "true");
 
         } else {
-            repo.style.border = 'solid var(--light-blue);';
+            //repo.style.border = 'solid var(--light-blue);';
+            repo.setAttribute("data-highlight", "false");
         }
     }
 }
@@ -163,7 +176,8 @@ function removeLanguageHighlights(language) {
     for (const repo of repos) {
         const languageString = repo.querySelector('p').innerText;
         if (languageString.includes(language)) {
-            repo.style.border = 'solid var(--light-blue)';
+            // repo.style.border = 'solid var(--light-blue)';
+            repo.setAttribute("data-highlight", "false");
         }
     }
 }
@@ -174,7 +188,8 @@ function clearAllHighlights() {
     // clear all highlights
     const repos = document.getElementsByClassName('repo');
     for (const repo of repos) {
-        repo.style.border = 'solid var(--light-blue)';
+        //repo.style.border = 'solid var(--light-blue)';
+        repo.setAttribute("data-highlight", "false");
     }
 }
 
@@ -182,7 +197,8 @@ function clearAllButtons() {
     // clear all buttons
     const buttons = document.getElementsByClassName('language-tag-button');
     for (const button of buttons) {
-        button.style.backgroundColor = 'var(--dark-blue)';
+        // button.style.backgroundColor = 'var(--dark-blue)';
+        button.setAttribute("data-active", "false");
     }
 }
 
@@ -191,7 +207,8 @@ function unclickButton(language) {
     const buttons = document.getElementsByClassName('language-tag-button');
     for (const button of buttons) {
         if (button.innerHTML === language) {
-            button.style.backgroundColor = 'var(--light-blue)';
+            // button.style.backgroundColor = 'var(--light-blue)';
+            button.setAttribute("data-active", "false");
         }
     }
 }

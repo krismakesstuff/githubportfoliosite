@@ -11,10 +11,11 @@
 
 body {
     font-family: monospace, sans-serif;
+    font-size: 1rem;
     margin: 0;
     padding: 0;
-    /* background-color: var(--dark-blue); */
-    background: linear-gradient(to right, var(--light-blue), var(--red));
+    background-color: var(--dark-blue);
+    /* background: linear-gradient(to right, var(--white), var(--red)); */
     
 }
 
@@ -25,9 +26,9 @@ header {
     padding-bottom: 15px;
 
     position: static;   
-    background: linear-gradient(to right, var(--light-blue), var(--red));
-
-    /* background-color: var(--light-blue); */
+    /* background: linear-gradient(to right, var(--light-blue), var(--red)); */
+    background-color: var(--light-blue);
+    
     color: var(--dark-blue);
     text-align: left;
 
@@ -67,6 +68,21 @@ header {
     cursor: pointer;
 }
 
+/* .language-tag-button:hover {
+    background-color: var(--yellow);
+    color: var(--dark-blue);
+} */
+
+.language-tag-button[data-active="true"] {
+    background-color: var(--yellow-green) ;
+    color: var(--dark-blue) ;
+}
+
+.language-tag-button[data-active="false"] {
+    background-color: var(--dark-blue) ;
+    color: var(--yellow) ;
+}
+
 #repos-container, #youtube-container {
     display: flex;
     flex-wrap: wrap;
@@ -77,26 +93,62 @@ header {
 .repo, .video {
     background-color: var(--dark-blue);
     color: var(--yellow-green);
-    border: 5px solid var(--light-blue);
+    border: 1px solid var(--light-blue);
     border-radius: 5px;
     margin: 10px;
     padding: 20px;
     width: 300px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.repo:hover, .video:hover {
+    /* background-color: var(--yellow-green);
+    color: var(--dark-blue); */
+    border: 1px solid var(--yellow-green);
+}
+
+.repo[data-highlight="true"]{
+    border: 1px solid var(--dark-blue);
+    background-color: var(--yellow-green);
+    color: var(--dark-blue);
+    box-shadow: 0 0 15px var(--white);
+}
+
+.repo[data-highlight="false"]{
+    color: var(--yellow-green);
+    border: 1px solid var(--light-blue);
+    background-color: var(--dark-blue);
+    color: var(--yellow-green);
 }
 
 .repo h2, .video h2 {
-    font-size: 1.5em;
+    font-size: 1.3em;
     margin-bottom: 10px;
     color: var(--yellow);
 }
 
+.repo[data-highlight="true"] h2, .video[data-highlight="true"] h2 {
+    color: var(--dark-blue);
+}
+
+.repo[data-highlight="false"] h2, .video[data-highlight="false"] h2 {
+    color: var(--yellow-green);
+}
+
 .repo h3, .video h3 {
-    font-size: 1.2em;
+    font-size: 1.1em;
     margin-bottom: 10px;
-    color: var(--light-blue);
+    color: var(--red);
 
 }
+
+/* .repo[data-highlight="true"] h3, .video[data-highlight="true"] h3 {
+    color: var(--dark-blue);
+}
+
+.repo[data-highlight="false"] h3, .video[data-highlight="false"] h3 {
+    color: var(--yellow-green);
+} */
+
 
 .repo p, .video p {
     font-size: 1em;
@@ -106,6 +158,14 @@ header {
 .repo a, .video a {
     color: var(--yellow);
     text-decoration: underline;
+}
+
+.repo[data-highlight="true"] a, .video[data-highlight="true"] a {
+    color: var(--dark-blue);
+}
+
+.repo[data-highlight="false"] a, .video[data-highlight="false"] a {
+    color: var(--yellow);
 }
 
 .repo a:hover, .video a:hover {
