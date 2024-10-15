@@ -10,7 +10,7 @@ var languages = {};
 // remove any repeated language tags
 var languageTags =[];
 
-var hightlightedLanguages = []; 
+var hightlightedLanguage; 
 
 
 async function fetchRepos() {
@@ -92,11 +92,12 @@ function displayRepo(repo, readmeURL) {
     reposContainer.appendChild(repoDiv);
 }
 
+
+
 function showLanguageTags(languageTags) {
     // make a grid of buttons for each language in languages
     console.log('languageTags:', languageTags);
 
-    const languageTagsArray = languageTags.entries(); 
 
     for (const language of languageTags) {
 
@@ -117,13 +118,13 @@ function showLanguageTags(languageTags) {
         languageButton.addEventListener('click', () => {
             // use button state to highlight repos with the selected language
             // buttons should be toggled on and off and change the border color of the repos as well as the button color
-            if (languageButton.style.backgroundColor === 'red') {   
-                languageButton.style.backgroundColor = 'var(--light-blue)';
+            if (hightlightedLanguage === language) {       
+                languageButton.style.backgroundColor = 'var(--light-blue) !important';
                 removeLanguageHighlights(language);
                 unclickButton(language);
             }
             else {
-                languageButton.style.backgroundColor = 'red';
+                languageButton.style.backgroundColor = 'red !important';        
                 clearAllHighlights();
                 clearAllButtons();
                 highlightRepos(language);
@@ -139,6 +140,7 @@ function showLanguageTags(languageTags) {
 }   
 
 function highlightRepos(language) { 
+    hightlightedLanguage = language;
     // highlight repos with the selected language
     const repos = document.getElementsByClassName('repo');
     for (const repo of repos) {
@@ -155,6 +157,7 @@ function highlightRepos(language) {
 
 function removeLanguageHighlights(language) {
  
+    hightlightedLanguage = null;
     // remove highlights from repos with the selected language
     const repos = document.getElementsByClassName('repo');
     for (const repo of repos) {
@@ -166,6 +169,8 @@ function removeLanguageHighlights(language) {
 }
 
 function clearAllHighlights() { 
+    hightlightedLanguage = null;
+
     // clear all highlights
     const repos = document.getElementsByClassName('repo');
     for (const repo of repos) {

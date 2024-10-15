@@ -76,7 +76,7 @@ header {
 
 .repo, .video {
     background-color: var(--dark-blue);
-    color: var(--red);
+    color: var(--yellow-green);
     border: 5px solid var(--light-blue);
     border-radius: 5px;
     margin: 10px;
@@ -105,11 +105,11 @@ header {
 
 .repo a, .video a {
     color: var(--yellow);
-    text-decoration: none;
+    text-decoration: underline;
 }
 
 .repo a:hover, .video a:hover {
-    text-decoration: underline;
+    text-decoration: none;  
 }
 
 .readme-content {
