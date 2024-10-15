@@ -10,6 +10,9 @@ var languages = {};
 // remove any repeated language tags
 var languageTags =[];
 
+var hightlightedLanguages = []; 
+
+
 async function fetchRepos() {
     const response = await fetch(`https://api.github.com/users/${username}/repos`);
     let repos = await response.json();
@@ -104,29 +107,31 @@ function showLanguageTags(languageTags) {
         }
 
         let languageButton = document.createElement('button');
-        languageButton.className = 'language-tag';
+        languageButton.className = 'language-tag-button';
         languageButton.innerHTML = language;
 
 
-        
-
+        // buttons should a radio buttons
+        // when clicked, they should highlight repos with the selected language and unhighlight all others  
 
         languageButton.addEventListener('click', () => {
             // use button state to highlight repos with the selected language
             // buttons should be toggled on and off and change the border color of the repos as well as the button color
             if (languageButton.style.backgroundColor === 'red') {   
                 languageButton.style.backgroundColor = 'var(--light-blue)';
-                //removeLanguageHighlights(language);
+                removeLanguageHighlights(language);
                 unclickButton(language);
             }
             else {
                 languageButton.style.backgroundColor = 'red';
+                clearAllHighlights();
+                clearAllButtons();
                 highlightRepos(language);
             }
 
-
-            console.log('Clicked:', language);
         });
+
+
         console.log("made button");
         tagsContainer.appendChild(languageButton);
     }   
@@ -140,29 +145,45 @@ function highlightRepos(language) {
         const languageString = repo.querySelector('p').innerText;
         if (languageString.includes(language)) {
             // set custom css variable 
-
+            repo.style.border = 'solid red';
 
         } else {
-            repo.style.border = '1px solid var(--light-blue);';
+            repo.style.border = 'solid var(--light-blue);';
         }
     }
 }
 
 function removeLanguageHighlights(language) {
+ 
     // remove highlights from repos with the selected language
     const repos = document.getElementsByClassName('repo');
     for (const repo of repos) {
         const languageString = repo.querySelector('p').innerText;
         if (languageString.includes(language)) {
-            repo.style.border = '1px solid var(--light-blue);';
-
+            repo.style.border = 'solid var(--light-blue)';
         }
+    }
+}
+
+function clearAllHighlights() { 
+    // clear all highlights
+    const repos = document.getElementsByClassName('repo');
+    for (const repo of repos) {
+        repo.style.border = 'solid var(--light-blue)';
+    }
+}
+
+function clearAllButtons() {    
+    // clear all buttons
+    const buttons = document.getElementsByClassName('language-tag-button');
+    for (const button of buttons) {
+        button.style.backgroundColor = 'var(--dark-blue)';
     }
 }
 
 function unclickButton(language) {
     // unclick the button
-    const buttons = document.getElementsByClassName('language-tag');
+    const buttons = document.getElementsByClassName('language-tag-button');
     for (const button of buttons) {
         if (button.innerHTML === language) {
             button.style.backgroundColor = 'var(--light-blue)';
