@@ -39,6 +39,14 @@ header {
 
 }
 
+header a {
+    color: var(--red);
+}
+
+header a:hover {
+    text-transform: uppercase;
+}
+
 #header-title {
     /* background-color: var(--red); */
     color: var(--dark-blue);
@@ -169,7 +177,7 @@ header {
 }
 
 .repo a:hover, .video a:hover {
-    text-decoration: none;  
+    text-transform: uppercase;
 }
 
 .readme-content {
