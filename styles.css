@@ -7,36 +7,39 @@
     --yellow: #E0FF4F;
     --white: #FEFEFE;
 
+
+    --font: 'monospace', sans-serif;
 }
 
 body {
-    font-family: monospace, sans-serif;
+    font-family: var(--font);
     font-size: 1rem;
     margin: 0;
     padding: 0;
     background-color: var(--dark-blue);
-    /* background: linear-gradient(to right, var(--white), var(--red)); */
-    
+}
+
+h2 {
+    padding: 1px;
+}
+
+h3 {
+    padding: 1px;
 }
 
 header {
-    padding-left: 20px; 
+    padding-left: 45px; 
     padding-right: 20px;
-    padding-top: 30px;
-    padding-bottom: 15px;
-
-    position: static;   
-    /* background: linear-gradient(to right, var(--light-blue), var(--red)); */
-    background-color: var(--light-blue);
-    
+    padding-top: 20px;
+    padding-bottom: 10px;
     color: var(--dark-blue);
     text-align: left;
-
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 2.5rem 2.5rem ;
     align-items: center;
 
+}
+
+button {
+    font-family: var(--font);
 }
 
 header a {
@@ -49,14 +52,23 @@ header a:hover {
 
 #header-title {
     /* background-color: var(--red); */
-    color: var(--dark-blue);
-    padding-bottom: 15px;   
-
+    color: var(--light-blue);
+    
+    display: flex;
 }
 
 #header-subtitle {
     color: var(--red);
+    display: flex; 
 }
+
+.header-info {
+    color: var(--light-blue);
+}
+
+#header-location {
+    color: var(--yellow-green);
+}   
 
 #tags-container {
     display: flex;
@@ -74,6 +86,7 @@ header a:hover {
     border-radius: 5px;
     padding: 5px 10px;
     cursor: pointer;
+    font-size: 1em;
 }
 
 /* .language-tag-button:hover {
