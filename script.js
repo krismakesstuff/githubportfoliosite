@@ -11,6 +11,7 @@ const default_sorting = 'updated_at';
 
 let repos = {};
 
+// called from the main function to fetch repos from the username and build the page
 async function fetchRepos() {
     // fetch repos from username
     const response = await fetch(`https://api.github.com/users/${username}/repos`);
@@ -31,6 +32,7 @@ async function fetchRepos() {
 
 }
 
+// fetch user data from users/username and update header elements
 async function updateHeaderElements(repos) {
     // fetch user data from users/username
     const response = await fetch(`https://api.github.com/users/${username}`);
@@ -46,7 +48,7 @@ async function updateHeaderElements(repos) {
     document.getElementById('header-profile-link').href = user.html_url;
 }
 
-
+// create a div for each repo and add it to the page
 async function buildReposHTMLElement(repos) {
     
     let reposContainer = document.getElementById('repos-container');
@@ -103,6 +105,7 @@ async function buildReposHTMLElement(repos) {
     console.log('Language Tags:', languageTags);
 }
 
+// add languages to languageTags array
 function addLanguageTags(languages) {
     // add languages to languageTags
     for (const language in languages) {
@@ -115,7 +118,6 @@ function addLanguageTags(languages) {
         }
     }   
 }
-
 
 function sortRepos(sorting) {
 
@@ -157,8 +159,8 @@ function sortRepos(sorting) {
 }
 
 
+// make a grid of buttons for each language in languageTags
 function showLanguageTags(languageTags) {
-    // make a grid of buttons for each language in languageTags
 
     let tagsContainer = document.getElementById('tags-container');
     let languageTagsDiv = document.createElement('div');
@@ -166,6 +168,7 @@ function showLanguageTags(languageTags) {
 
     for (const language of languageTags) {
 
+        // make button
         let languageButton = document.createElement('button');
         languageButton.className = 'language-tag-button';
         languageButton.innerHTML = language;
@@ -173,32 +176,35 @@ function showLanguageTags(languageTags) {
         // set button state
         languageButton.setAttribute("data-active", "false");
 
-
+        // add event listener to button 
         languageButton.addEventListener('click', () => {
             // use button state to highlight repos with the selected language
-            // buttons should be toggled on and off and change the border color of the repos as well as the button color
-            if (hightlightedLanguage === language) {       
+            if (hightlightedLanguage === language) {  
+                // language is already highlighted, remove highlights     
                 removeLanguageHighlights(language);
-                unclickButton(language);
+                languageButton.setAttribute("data-active", "false");
+                // reset the sorting
                 sortRepos(default_sorting);
             }
             else {
+                // clear any other highlights 
                 clearAllHighlights();
                 clearAllButtons();
-                
+
+                // highlight repos with the selected language and sort 
                 languageButton.setAttribute("data-active", "true");
                 highlightRepos(language);
                 sortRepos(language);
             }
-
         });
-
+        // add button to the page
         languageTagsDiv.appendChild(languageButton);
     }   
-    
+    // add language tags to the page
     tagsContainer.appendChild(languageTagsDiv);
 }   
 
+// used by language tab buttons to highlight repos with the selected language 
 function highlightRepos(language) { 
     hightlightedLanguage = language;
     // highlight repos with the selected language
@@ -206,17 +212,15 @@ function highlightRepos(language) {
     for (const repo of repos) {
         const languageString = repo.querySelector('p').innerText;
         if (languageString.includes(language)) {
-            // set custom css variable 
-            //repo.style.border = 'solid red';
             repo.setAttribute("data-highlight", "true");
 
         } else {
-            //repo.style.border = 'solid var(--light-blue);';
             repo.setAttribute("data-highlight", "false");
         }
     }
 }
 
+// used by language tab buttons to remove highlights from repos with the selected language
 function removeLanguageHighlights(language) {
  
     hightlightedLanguage = null;
@@ -225,12 +229,12 @@ function removeLanguageHighlights(language) {
     for (const repo of repos) {
         const languageString = repo.querySelector('p').innerText;
         if (languageString.includes(language)) {
-            // repo.style.border = 'solid var(--light-blue)';
             repo.setAttribute("data-highlight", "false");
         }
     }
 }
 
+// used by language tab buttons to remove highlights from all repos
 function clearAllHighlights() { 
     hightlightedLanguage = null;
 
@@ -242,55 +246,22 @@ function clearAllHighlights() {
     }
 }
 
+// used by language tab buttons to clear all buttons
 function clearAllButtons() {    
     // clear all buttons
     const buttons = document.getElementsByClassName('language-tag-button');
     for (const button of buttons) {
-        // button.style.backgroundColor = 'var(--dark-blue)';
         button.setAttribute("data-active", "false");
     }
 }
-
-function unclickButton(language) {
-    // unclick the button
-    const buttons = document.getElementsByClassName('language-tag-button');
-    for (const button of buttons) {
-        if (button.innerHTML === language) {
-            // button.style.backgroundColor = 'var(--light-blue)';
-            button.setAttribute("data-active", "false");
-        }
-    }
-}
-
-// async function fetchYouTubeVideos() {
-//     const response = await fetch(`https://www.googleapis.com/youtube/v3/search?key=${youtubeApiKey}&channelId=${youtubeChannelId}&part=snippet,id&order=date&maxResults=10`);
-//     const data = await response.json();
-//     console.log('YouTube Data:', data);
-//     data.items.forEach(video => displayVideo(video));
-// }
-
-// function displayVideo(video) {
-//     const videoDiv = document.createElement('div');
-//     videoDiv.className = 'video';
-//     videoDiv.innerHTML = `
-//         <h2>${video.snippet.title}</h2>
-//         <img src="${video.snippet.thumbnails.medium.url}" alt="${video.snippet.title}">
-//         <p><a href="https://www.youtube.com/watch?v=${video.id.videoId}" target="_blank">Watch on YouTube</a></p>
-//     `;
-//     youtubeContainer.appendChild(videoDiv);
-// }
-
 
 
 // main
 try {
 
-    // on successful fetch
     fetchRepos()
 
-    // I'll come back to this later
-    //fetchYouTubeVideos();
-
 } catch (error) {
+    
     console.error('Error:', error);
 }
