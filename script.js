@@ -1,17 +1,13 @@
 
-const username = 'krismakesstuff';
-// const reposContainer = document.getElementById('repos-container');
-// const youtubeContainer = document.getElementById('youtube-container');
-// const tagsContainer = document.getElementById('tags-container');
-// const youtubeApiKey = 'YOUR_YOUTUBE_API_KEY';
-// const youtubeChannelId = 'UCkrismakesmusic7901';
+const username = 'krismakesstuff'; // change username to your github username
 
 var languages = {};
 var languageTags =[];
+var languageExclusions = ['C','Inno Setup']; // languages to exclude from the language tags. 
 
 var hightlightedLanguage; 
 
-var default_sorting = 'updated_at';
+const default_sorting = 'updated_at';
 
 let repos = {};
 
@@ -30,7 +26,7 @@ async function fetchRepos() {
         showLanguageTags(languageTags);
     
         // sort the repos
-        sortRepos(repos, default_sorting);
+        sortRepos(default_sorting);
     });
 
 }
@@ -40,14 +36,13 @@ async function updateHeaderElements(repos) {
     const response = await fetch(`https://api.github.com/users/${username}`);
     const user = await response.json();
 
-    // update page Title, name, location, public repos, followers, and following
+    console.log('User:', user);
+
+    // update page 
     document.title = user.name;
     document.getElementsByTagName('title')[0].innerText = user.name + ' - GitHub';
     document.getElementById('header-title').innerText = user.name;
     document.getElementById('header-location').innerText = user.location;
-    // document.getElementById('header-public-repos').innerText = 'PublicRepos: ' + user.public_repos;
-    // document.getElementById('header-followers').innerText = 'Followers:' + user.followers;
-    // document.getElementById('header-following').innerText = 'Following: ' + user.following;
     document.getElementById('header-profile-link').href = user.html_url;
 }
 
@@ -61,7 +56,7 @@ async function buildReposHTMLElement(repos) {
         // fecth languages  
         const response = await fetch(repo.languages_url);
         languages = await response.json();
-        console.log('Languages:', languages);
+        //console.log('Languages:', languages);
         
         
         const branch = repo.default_branch;
@@ -91,11 +86,11 @@ async function buildReposHTMLElement(repos) {
         repoDiv.innerHTML = `
         <h2><a href="${repo.html_url}" target="_blank">${repo.name}</a></h2>
         <h3>${repo.description || ''}</h3>
+        <a class="readme"href="${readme}" target="_blank">Readme.md</a>
         <p class="languages"><strong>Language:</strong> ${languageString}</p>
-        <p class="updated_at"><strong>Updated:</strong> ${updated.toDateString()}</p>
+        <p class="updated_at"><strong>Updated:</strong> ${updated.toLocaleDateString()}</p>
         <p class="created_at"><strong>Created:</strong> ${created.toLocaleDateString()}</p>
         <br>
-        <a class="readme"href="${readme}" target="_blank">Readme.md</a>
         `;
 
         // add div to the page
@@ -112,15 +107,13 @@ function addLanguageTags(languages) {
     // add languages to languageTags
     for (const language in languages) {
         
-        if(!languageTags.includes(language) && language != "C" && language != "Inno Setup") // check the language is not already in the array
+        if(!languageTags.includes(language) && !languageExclusions.includes(language)) // check the language is not already in the array
         {
             languageTags.push(language);
         }else{
-            console.log('Language already in array:' + language);
+            // console.log('Language already in array:' + language);
         }
     }   
-
-    console.log('Language Tags:', languageTags);
 }
 
 
@@ -132,16 +125,23 @@ function sortRepos(sorting) {
 
     // sort the repos by the selected sorting
     if(sorting === 'updated_at') {
+        console.log('Sorting by updated_at');
         reposArray.sort((a, b) => {
-            return new Date(a.querySelector('.updated_at').innerText) > new Date(b.querySelector('.updated_at').innerText) ? -1 : 1;
+            let aText = a.querySelector('.updated_at').innerText;
+            let bText = b.querySelector('.updated_at').innerText;
+            return new Date(aText) > new Date(bText) ? -1 : 1;
         });
     }
     else if(sorting === 'created_at') {
+        console.log('Sorting by created_at');
         reposArray.sort((a, b) => {
-            return new Date(a.querySelector('.created_at').innerText) > new Date(b.querySelector('.created_at').innerText) ? -1 : 1;
+            let aText = a.querySelector('.created_at').innerText;
+            let bText = b.querySelector('.created_at').innerText;
+            return new Date(aText) > new Date(bText) ? -1 : 1;
         });
     }
     else if(languageTags.includes(sorting)) {
+        console.log('Sorting by language: ' + sorting);
         reposArray.sort((a, b) => {
             return a.querySelector('.languages').innerText.includes(sorting) ? -1 : 1;
         });
@@ -159,7 +159,6 @@ function sortRepos(sorting) {
 
 function showLanguageTags(languageTags) {
     // make a grid of buttons for each language in languageTags
-    console.log('Show languageTags:', languageTags);
 
     let tagsContainer = document.getElementById('tags-container');
     let languageTagsDiv = document.createElement('div');
@@ -167,7 +166,6 @@ function showLanguageTags(languageTags) {
 
     for (const language of languageTags) {
 
-        console.log('Language Tag Button: ', language);
         let languageButton = document.createElement('button');
         languageButton.className = 'language-tag-button';
         languageButton.innerHTML = language;
@@ -195,9 +193,6 @@ function showLanguageTags(languageTags) {
 
         });
 
-
-
-        console.log("made button");
         languageTagsDiv.appendChild(languageButton);
     }   
     
