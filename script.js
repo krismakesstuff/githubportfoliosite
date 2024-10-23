@@ -1,9 +1,9 @@
 
 const username = 'krismakesstuff'; // change username to your github username
+const languageExclusions = ['C','Inno Setup']; // languages to exclude from the language tags. 
 
 var languages = {};
 var languageTags =[];
-var languageExclusions = ['C','Inno Setup']; // languages to exclude from the language tags. 
 
 var hightlightedLanguage; 
 
@@ -119,13 +119,13 @@ function addLanguageTags(languages) {
     }   
 }
 
+// sort the repos by the selected sorting
 function sortRepos(sorting) {
 
     let reposContainer = document.getElementById('repos-container');
     const repos = document.getElementsByClassName('repo');
     const reposArray = Array.from(repos);
 
-    // sort the repos by the selected sorting
     if(sorting === 'updated_at') {
         console.log('Sorting by updated_at');
         reposArray.sort((a, b) => {
