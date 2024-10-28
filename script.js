@@ -71,8 +71,6 @@ async function buildReposHTMLElement(repos) {
         // fecth languages  
         const response = await fetch(repo.languages_url);
         languages = await response.json();
-        //console.log('Languages:', languages);
-        
         
         const branch = repo.default_branch;
         const readme = repo.html_url + '/blob/' + branch +'/README.md';
@@ -81,7 +79,6 @@ async function buildReposHTMLElement(repos) {
         repoDiv.className = 'repo';
         
         // convert updated and created dates to Date objects
-        
         let updated = new Date(repo.updated_at);
         let created = new Date(repo.created_at);
         
@@ -157,9 +154,22 @@ function sortRepos(sorting) {
     }
     else if(languageTags.includes(sorting)) {
         console.log('Sorting by language: ' + sorting);
+        
+        // sort repos by language
         reposArray.sort((a, b) => {
-            return a.querySelector('.languages').innerText.includes(sorting) ? -1 : 1;
+            let aResult = a.querySelector('.languages').innerText.includes(sorting) ? -1 : 1;
+            return aResult;
         });
+
+        // sort repos by updated_at only if they have the same language as the sorting
+        reposArray.sort((a, b) => {
+            if(a.querySelector('.languages').innerText.includes(sorting) && b.querySelector('.languages').innerText.includes(sorting)){
+                let aText = a.querySelector('.updated_at').innerText;
+                let bText = b.querySelector('.updated_at').innerText;
+                return new Date(aText) > new Date(bText) ? -1 : 1;
+            }
+        });
+
     }
 
     // clear the container
@@ -170,7 +180,6 @@ function sortRepos(sorting) {
         reposContainer.appendChild(repo);
     }
 }
-
 
 // make a grid of buttons for each language in languageTags
 function showLanguageTags(languageTags) {
