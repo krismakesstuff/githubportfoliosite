@@ -16,6 +16,18 @@ async function fetchRepos() {
     // fetch repos from username
     const response = await fetch(`https://api.github.com/users/${username}/repos`);
     
+    // handle error response
+    if (!response.ok) {
+        // display error message, read json response
+        const error = await response.json();
+        console.error('Error:', error);
+
+        // display error message in the header
+        document.getElementById('header-title').innerText = 'Error: ' + error.message + ' - refresh the page after waiting a few minutes';
+    
+        return;
+    }
+
     repos = await response.json();
 
     // update page Title, name, location, public repos, followers, and following
@@ -46,6 +58,7 @@ async function updateHeaderElements(repos) {
     document.getElementById('header-title').innerText = user.name;
     document.getElementById('header-location').innerText = user.location;
     document.getElementById('header-profile-link').href = user.html_url;
+    document.getElementById('header-num-repos').innerText = user.public_repos + ' Repos';
 }
 
 // create a div for each repo and add it to the page

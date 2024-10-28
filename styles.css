@@ -43,6 +43,7 @@ header a:hover {
 
 #header-title {
     color: var(--light-blue);
+    margin: 0px;
 }
 
 #header-subtitle {
@@ -52,11 +53,19 @@ header a:hover {
 
 .header-info {
     color: var(--light-blue);
+    margin: 0px;
+
 }
 
 #header-location {
     color: var(--yellow-green);
+    margin: 0px;
 }   
+
+#header-num-repos{
+    color: var(--yellow);
+    margin: 0px;
+}
 
 #tags-container {
     display: flex;
@@ -113,9 +122,9 @@ header a:hover {
     color: var(--yellow-green);
     border: 1px solid var(--light-blue);
     border-radius: 5px;
-    margin: 10px;
-    padding: 20px;
-    width: 200px;
+    margin: 5px;
+    padding: 10px;
+    width: 220px;
 }
 
 .repo:hover, .video:hover {
