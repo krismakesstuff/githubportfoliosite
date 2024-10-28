@@ -138,6 +138,18 @@ header a:hover {
     border: 1px solid var(--yellow-green);
 }
 
+.repo .name{
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: var(--yellow);
+}
+
+.repo .description{
+    font-size: 1em;
+    margin-bottom: 10px;
+    color: var(--red);
+}
+
 .repo[data-highlight="true"]{
     border: 1px solid var(--dark-blue);
     background-color: var(--yellow-green);
@@ -152,36 +164,28 @@ header a:hover {
     color: var(--yellow-green);
 }
 
-.repo h2, .video h2 {
+/* .repo h2, .video h2 {
     font-size: 1.1em;
     margin-bottom: 10px;
     color: var(--yellow);
-}
-
-.repo[data-highlight="true"] h2, .video[data-highlight="true"] h2 {
-    color: var(--dark-blue);
-}
-
-.repo[data-highlight="false"] h2, .video[data-highlight="false"] h2 {
-    color: var(--yellow-green);
-}
-
-.repo h3, .video h3 {
-    font-size: 1.1em;
-    margin-bottom: 10px;
-    color: var(--red);
-
-}
-
-/* .repo[data-highlight="true"] h3, .video[data-highlight="true"] h3 {
-    color: var(--dark-blue);
-}
-
-.repo[data-highlight="false"] h3, .video[data-highlight="false"] h3 {
-    color: var(--yellow-green);
 } */
 
 
+/* .repo h3, .video h3 {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+    color: var(--red);
+    } */
+    
+/* .repo[data-highlight="true"] h3, .video[data-highlight="true"] h3 {
+    color: var(--dark-blue);
+    }
+    
+.repo[data-highlight="false"] h3, .video[data-highlight="false"] h3 {
+    color: var(--yellow-green);
+    } */
+            
+            
 .repo p, .video p {
     font-size: 1em;
     margin-bottom: 2px;
@@ -191,7 +195,14 @@ header a:hover {
     color: var(--yellow);
     text-decoration: underline;
 }
+            
+.repo[data-highlight="true"] h2, .video[data-highlight="true"] h2 {
+    color: var(--dark-blue);
+}
 
+.repo[data-highlight="false"] h2, .video[data-highlight="false"] h2 {
+    color: var(--yellow-green);
+}
 .repo[data-highlight="true"] a, .video[data-highlight="true"] a {
     color: var(--dark-blue);
 }
@@ -202,6 +213,7 @@ header a:hover {
 
 .repo a:hover, .video a:hover {
     text-transform: uppercase;
+    font-size: 0.8em;
 }
 
 .readme-content {

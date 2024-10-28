@@ -96,8 +96,8 @@ async function buildReposHTMLElement(repos) {
         
         // generate html 
         repoDiv.innerHTML = `
-        <h2><a href="${repo.html_url}" target="_blank">${repo.name}</a></h2>
-        <h3>${repo.description || ''}</h3>
+        <h3 class="name"><a href="${repo.html_url}" target="_blank">${repo.name}</a></h3>
+        <p class="description">${repo.description || ''}</p>
         <a class="readme"href="${readme}" target="_blank">Readme.md</a>
         <p class="languages"><strong>Language:</strong> ${languageString}</p>
         <p class="updated_at"><strong>Updated:</strong> ${updated.toLocaleDateString()}</p>
