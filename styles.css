@@ -83,8 +83,7 @@ header a:hover {
 
 #tags-header {
     color: var(--yellow-green);
-    font-size: 1.2em;
-    font-style: italic;
+    font-size: 1.1em;
     padding: 1px;
     justify-content: start;
     margin: 0px;
@@ -115,14 +114,14 @@ header a:hover {
     color: var(--yellow) ;
 }
 
-#repos-container, #youtube-container {
+#repos-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     padding: 20px;
 }
 
-.repo, .video {
+.repo {
     background-color: var(--dark-blue);
     color: var(--yellow-green);
     border: 1px solid var(--light-blue);
@@ -132,14 +131,16 @@ header a:hover {
     width: 220px;
 }
 
-.repo:hover, .video:hover {
+.repo:hover {
     /* background-color: var(--yellow-green);
     color: var(--dark-blue); */
     border: 1px solid var(--yellow-green);
 }
 
 .repo .name{
-    font-size: 1.2em;
+    font-size: 1.1em;
+    font-style: bold;
+    margin-top: 2px;
     margin-bottom: 10px;
     color: var(--yellow);
 }
@@ -151,16 +152,31 @@ header a:hover {
 }
 
 .repo[data-highlight="true"]{
-    border: 1px solid var(--dark-blue);
-    background-color: var(--yellow-green);
     color: var(--dark-blue);
+    background-color: var(--yellow-green);
+    border: 1px solid var(--dark-blue);
     box-shadow: 0 0 15px var(--white);
 }
 
 .repo[data-highlight="false"]{
     color: var(--yellow-green);
-    border: 1px solid var(--light-blue);
     background-color: var(--dark-blue);
+    border: 1px solid var(--light-blue);
+}
+
+.repo[data-highlight="true"] .name{
+    color: var(--dark-blue);
+}
+
+.repo[data-highlight="true"] .readme{
+    color: var(--dark-blue);
+}
+
+.repo a:hover {
+    text-transform: uppercase;
+}
+
+.readme {
     color: var(--yellow-green);
 }
 
@@ -186,41 +202,27 @@ header a:hover {
     } */
             
             
-.repo p, .video p {
+/* .repo p {
     font-size: 1em;
     margin-bottom: 2px;
 }
 
-.repo a, .video a {
+.repo a {
     color: var(--yellow);
     text-decoration: underline;
-}
+} */
             
-.repo[data-highlight="true"] h2, .video[data-highlight="true"] h2 {
+/* .repo[data-highlight="true"] h2 {
     color: var(--dark-blue);
 }
 
-.repo[data-highlight="false"] h2, .video[data-highlight="false"] h2 {
+.repo[data-highlight="false"] h2 {
     color: var(--yellow-green);
 }
-.repo[data-highlight="true"] a, .video[data-highlight="true"] a {
+.repo[data-highlight="true"] a {
     color: var(--dark-blue);
 }
 
-.repo[data-highlight="false"] a, .video[data-highlight="false"] a {
+.repo[data-highlight="false"] a {
     color: var(--yellow);
-}
-
-.repo a:hover, .video a:hover {
-    text-transform: uppercase;
-    font-size: 0.8em;
-}
-
-.readme-content {
-    background-color: var(--white);
-    color: var(--red);
-    padding: 10px;
-    border-radius: 5px;
-    overflow-y: auto;
-    height: 200px; /* Fixed height for the README content */
-}
+} */

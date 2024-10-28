@@ -96,9 +96,9 @@ async function buildReposHTMLElement(repos) {
         
         // generate html 
         repoDiv.innerHTML = `
-        <h3 class="name"><a href="${repo.html_url}" target="_blank">${repo.name}</a></h3>
+        <a class="name" href="${repo.html_url}" target="_blank">${repo.name}</a>
         <p class="description">${repo.description || ''}</p>
-        <a class="readme"href="${readme}" target="_blank">Readme.md</a>
+        <a class="readme" href="${readme}" target="_blank">Readme.md</a>
         <p class="languages"><strong>Language:</strong> ${languageString}</p>
         <p class="updated_at"><strong>Updated:</strong> ${updated.toLocaleDateString()}</p>
         <p class="created_at"><strong>Created:</strong> ${created.toLocaleDateString()}</p>
@@ -232,12 +232,9 @@ function highlightRepos(language) {
     // highlight repos with the selected language
     const repos = document.getElementsByClassName('repo');
     for (const repo of repos) {
-        const languageString = repo.querySelector('p').innerText;
+        const languageString = repo.querySelector('.languages').innerHTML;
         if (languageString.includes(language)) {
             repo.setAttribute("data-highlight", "true");
-
-        } else {
-            repo.setAttribute("data-highlight", "false");
         }
     }
 }
@@ -249,10 +246,12 @@ function removeLanguageHighlights(language) {
     // remove highlights from repos with the selected language
     const repos = document.getElementsByClassName('repo');
     for (const repo of repos) {
-        const languageString = repo.querySelector('p').innerText;
+        // find the language id and set repo attribute to false
+        const languageString = repo.querySelector('.languages').innerHTML;
         if (languageString.includes(language)) {
             repo.setAttribute("data-highlight", "false");
         }
+        
     }
 }
 
