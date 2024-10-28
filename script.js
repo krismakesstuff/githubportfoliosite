@@ -78,7 +78,7 @@ async function buildReposHTMLElement(repos) {
             languageCount += languages[language];   
         }
         
-        // calculate the percentage of code in each language and add make one string
+        // calculate the percentage of code in each language and create a string
         let languageString = '';
         for (const language in languages) {
             languageString += language + ':' + ((languages[language]/languageCount) * 100).toFixed(2) + '% ';
