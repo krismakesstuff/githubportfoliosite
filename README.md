@@ -5,7 +5,7 @@
 
 ## How to build
 1. Clone this repository
-2. Change variables ```username``` and ``` languageExclusions``` in script.js to you preference.
+2. Change variables ```username``` and ``` languageExclusions``` in script.js to your preference.
 3. Access site in browser (If using VSCode, click "Go Live").
 
  ## TODO

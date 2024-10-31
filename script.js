@@ -77,6 +77,7 @@ async function buildReposHTMLElement(repos) {
 
         const repoDiv = document.createElement('div');
         repoDiv.className = 'repo';
+        repoDiv.setAttribute("data-highlight", "false");
         
         // convert updated and created dates to Date objects
         let updated = new Date(repo.updated_at);
@@ -98,10 +99,10 @@ async function buildReposHTMLElement(repos) {
         repoDiv.innerHTML = `
         <a class="name" href="${repo.html_url}" target="_blank">${repo.name}</a>
         <p class="description">${repo.description || ''}</p>
-        <a class="readme" href="${readme}" target="_blank">Readme.md</a>
         <p class="languages"><strong>Language:</strong> ${languageString}</p>
         <p class="updated_at"><strong>Updated:</strong> ${updated.toLocaleDateString()}</p>
         <p class="created_at"><strong>Created:</strong> ${created.toLocaleDateString()}</p>
+        <a class="readme" href="${readme}" target="_blank">Readme.md</a>
         <br>
         `;
 
