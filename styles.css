@@ -9,6 +9,7 @@
     --font: 'Poppins', sans-serif;
     --font-color: var(--ou-crimson);
     --background-color: var(--prussian-blue);
+    --shadow-color: var(--prussian-blue);
     --left-padding: 60px;
 
 }
@@ -108,11 +109,14 @@ header a:hover {
     cursor: pointer;
     font-size: 1em;
     margin: 5px;
+    box-shadow: 0 0 5px var(--shadow-color);   
 }
 
 .language-tag-button:hover {
+    transition: 0.3s;
     background-color: var(--prussian-blue) !important;
     color: var(--xanthous) !important;
+    box-shadow: 0 0 10px var(--shadow-color);
 }
 
 .language-tag-button[data-active="true"] {
@@ -138,6 +142,7 @@ header a:hover {
     padding: 10px;
     width: 220px;
     border-radius: 10px;
+    box-shadow: 0 0 5px var(--shadow-color);
 }
 
 .repo .name{
@@ -177,14 +182,18 @@ header a:hover {
 }
 
 .repo[data-highlight="true"]{
+    transition: 0.5s;
     color: var(--jet);
     background-color: var(--syracuse-red-orange);
+    box-shadow: 0 0 10px var(--shadow-color);
 
 }
 
 .repo[data-highlight="false"]{
+    transition: 0.5s;
     color: var(--jet);
     background-color: var(--prussian-blue);
+
 }
 
 .repo[data-highlight="true"] .name{
@@ -227,9 +236,6 @@ header a:hover {
         padding-bottom: 5px;
     }
 
-    .language-tags {
-        /* flex-direction: column; */
-    }
 
     .language-tag-button {
         margin-bottom: 5px;
