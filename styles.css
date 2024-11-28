@@ -1,12 +1,12 @@
 /* Color Palette */
 :root {
     --xanthous: #f1bb3cff;
-    --syracuse-red-orange: #d1440bff;
-    --ou-crimson: #89031bff;
-    --prussian-blue: #002e47ff;
-    --jet: rgb(204, 204, 204);
+    --syracuse-red-orange: #E65314;
+    --ou-crimson: #D72828;
+    --prussian-blue: #002E47;
+    --jet: #EDEDED;
 
-    --font: 'Roboto', sans-serif;
+    --font: 'Poppins', sans-serif;
     --font-color: var(--ou-crimson);
     --background-color: var(--prussian-blue);
     --left-padding: 60px;
@@ -23,9 +23,13 @@ body {
 
 header {
     padding-left: var(--left-padding); 
+    padding-right: var(--left-padding); 
     padding-top: 20px;
     padding-bottom: 10px;
     text-align: left;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
     align-items: center;
 
 }
@@ -64,24 +68,21 @@ header a:hover {
 }   
 
 #header-num-repos{
-    color: var(--syracuse-red-orange);
+    color: var(--xanthous);
     margin-top: 5px;
 }
 
 #header-profile-link{
     color: var(--ou-crimson);
-    margin-top: 10px;
-    padding-top: 10px;
+    
 }
 
 #tags-container {
     display: flex;
-    justify-content: left;
-    padding-left: var(--left-padding);
+    justify-content: center;
     padding-bottom: 10px;
     gap: 10px;  
-    grid-column: 1/3;
-    grid-row: 2/3;
+
 }   
 
 #tags-header {
@@ -92,20 +93,27 @@ header a:hover {
     margin: 0px;
 }
 
+.language-tags {
+    grid-gap: 10px;
+
+    justify-content: center;
+}
+
 .language-tag-button {
     background-color: var(--jet);
     color: var(--yellow);
     border: 1px solid var(--syracuse-red-orange);
     border-radius: 5px;
-    padding: 5px 10px;
+    padding: 10px;
     cursor: pointer;
     font-size: 1em;
+    margin: 5px;
 }
 
-/* .language-tag-button:hover {
-    background-color: var(--yellow);
-    color: var(--dark-blue);
-} */
+.language-tag-button:hover {
+    background-color: var(--prussian-blue) !important;
+    color: var(--xanthous) !important;
+}
 
 .language-tag-button[data-active="true"] {
     background-color: var(--syracuse-red-orange) ;
@@ -120,14 +128,16 @@ header a:hover {
 #repos-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: left;
+    justify-content: center;
     padding-left: var(--left-padding);
+    padding-right: var(--left-padding);
 }
 
 .repo {
     margin: 5px;
     padding: 10px;
     width: 220px;
+    border-radius: 10px;
 }
 
 .repo .name{
@@ -193,49 +203,45 @@ header a:hover {
     color: var(--syracuse-red-orange);
 }
 
-/* .repo h2, .video h2 {
-    font-size: 1.1em;
-    margin-bottom: 10px;
-    color: var(--yellow);
-} */
+/* Mobile */
 
-
-/* .repo h3, .video h3 {
-    font-size: 1.1em;
-    margin-bottom: 10px;
-    color: var(--red);
-    } */
-    
-/* .repo[data-highlight="true"] h3, .video[data-highlight="true"] h3 {
-    color: var(--dark-blue);
+@media (max-width: 768px) {
+    :root {
+        --left-padding: 20px;
     }
-    
-.repo[data-highlight="false"] h3, .video[data-highlight="false"] h3 {
-    color: var(--yellow-green);
-    } */
-            
-            
-/* .repo p {
-    font-size: 1em;
-    margin-bottom: 2px;
-}
 
-.repo a {
-    color: var(--yellow);
-    text-decoration: underline;
-} */
-            
-/* .repo[data-highlight="true"] h2 {
-    color: var(--dark-blue);
-}
+    body {
+        font-size: 0.9rem;
+    }
 
-.repo[data-highlight="false"] h2 {
-    color: var(--yellow-green);
-}
-.repo[data-highlight="true"] a {
-    color: var(--dark-blue);
-}
+    header {
+        padding-left: var(--left-padding);
+        padding-top: 15px;
+        padding-bottom: 5px;
+    }
 
-.repo[data-highlight="false"] a {
-    color: var(--yellow);
-} */
+    #tags-container {
+        flex-wrap: wrap;
+        padding-left: var(--left-padding);
+        padding-right: var(--left-padding);
+        padding-bottom: 5px;
+    }
+
+    .language-tags {
+        /* flex-direction: column; */
+    }
+
+    .language-tag-button {
+        margin-bottom: 5px;
+    }
+
+    #repos-container {
+        padding-left: var(--left-padding);
+        padding-right: 20px;
+    }
+
+    .repo {
+        width: 100%;
+        margin: 5px 0;
+    }
+}
