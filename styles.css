@@ -5,11 +5,13 @@
     --ou-crimson: #D72828;
     --prussian-blue: #002E47;
     --jet: #EDEDED;
+    --jet-gray: #BEBEBE;
 
     --font: 'Poppins', sans-serif;
     --font-color: var(--ou-crimson);
     --background-color: var(--prussian-blue);
     --shadow-color: var(--prussian-blue);
+    --light-shadow-color: var(--jet);
     --left-padding: 60px;
 
 }
@@ -19,7 +21,7 @@ body {
     font-size: 1rem;
     margin: 0;
     padding: 0;
-    background-color: var(--jet);
+    background-color: var(--jet-gray);
 }
 
 header {
@@ -27,11 +29,9 @@ header {
     padding-right: var(--left-padding); 
     padding-top: 20px;
     padding-bottom: 10px;
-    text-align: left;
-    align-items: center;
+    align-items: left;
     display: flex;
     flex-direction: column;
-    align-items: center;
 
 }
 
@@ -39,17 +39,23 @@ button {
     font-family: var(--font);
 }
 
-header a {
+a {
     color: var(--red);
+    text-transform: uppercase;
+    text-decoration: none;
 }
 
-header a:hover {
-    text-transform: uppercase;
+a:hover {
+    text-decoration: underline;
+}
+
+p {
+    margin: 5px 0px;
 }
 
 #header-title {
     color: var(--prussian-blue);
-    margin: 0px;
+    margin: 0px 10px;
 }
 
 #header-subtitle {
@@ -59,17 +65,17 @@ header a:hover {
 
 .header-info {
     color: var(--ou-crimson);
-    margin: 0px;
+    margin: 0px 10px;
 
 }
 
 #header-location {
     color: var(--syracuse-red-orange);
-    margin: 0px;
+    margin: 0px 10px;
 }   
 
 #header-num-repos{
-    color: var(--xanthous);
+    color: var(--prussian-blue);
     margin-top: 5px;
 }
 
@@ -80,67 +86,57 @@ header a:hover {
 
 #tags-container {
     display: flex;
-    justify-content: center;
-    padding-bottom: 10px;
+    justify-content: left;
     gap: 10px;  
+    padding-left: var(--left-padding);
+    padding-right: var(--left-padding);
+    border-width: 0px;
 
 }   
 
-#tags-header {
-    color: var(--yellow-green);
-    font-size: 1.1em;
-    padding: 1px;
-    justify-content: start;
-    margin: 0px;
-}
-
-.language-tags {
-    grid-gap: 10px;
-
-    justify-content: center;
-}
-
 .language-tag-button {
-    background-color: var(--jet);
+    background-color: var(--prussian-blue);
     color: var(--yellow);
-    border: 1px solid var(--syracuse-red-orange);
     border-radius: 5px;
     padding: 10px;
     cursor: pointer;
     font-size: 1em;
     margin: 5px;
-    box-shadow: 0 0 5px var(--shadow-color);   
+    /* box-shadow: 0 0 5px var(--shadow-color);    */
 }
 
 .language-tag-button:hover {
-    transition: 0.3s;
-    background-color: var(--prussian-blue) !important;
-    color: var(--xanthous) !important;
+    transition: 0.5s;
+    background-color: var(--prussian-blue) ;
+    color: var(--xanthous) ;
     box-shadow: 0 0 10px var(--shadow-color);
 }
 
 .language-tag-button[data-active="true"] {
-    background-color: var(--syracuse-red-orange) ;
-    color: var(--jet) ;
+    color: var(--syracuse-red-orange);
+    border-color: var(--syracuse-red-orange);
 }
 
 .language-tag-button[data-active="false"] {
-    background-color: var(--jet) ;
-    color: var(--syracuse-red-orange) ;
+    color: var(--jet);
+    background-color: var(--prussian-blue);
 }
 
 #repos-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-template-rows: auto;
+    margin-top: 10px;
+    gap: 15px;
     padding-left: var(--left-padding);
     padding-right: var(--left-padding);
 }
 
 .repo {
+    display: flex;
+    flex-direction: column;
     margin: 5px;
     padding: 10px;
-    width: 220px;
     border-radius: 10px;
     box-shadow: 0 0 5px var(--shadow-color);
 }
@@ -148,73 +144,88 @@ header a:hover {
 .repo .name{
     font-size: 1.1em;
     font-weight: bold;
+    text-align: center;
     margin-top: 5px;
     margin-bottom: 10px;
-    color: var(--syracuse-red-orange);
+    color: var(--jet);
 }
 
 .repo .description{
     font-size: 0.8em;
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: var(--red);
+    color: var(--jet);
 }
 
 .repo .languages{
     font-size: 0.8em;
-    font-weight: bold;
-    margin-bottom: 5px;
     color: var(--xanthous);
 }
 
 .repo .updated_at{
     font-size: 0.8em;
-    font-weight: bold;
-    margin-bottom: 10px;
     color: var(--yellow-green);
 }
 
-.repo .create_at{
+.repo .created_at{
     font-size: 0.8em;
-    font-weight: bold;
-    margin-bottom: 10px;
     color: var(--yellow-green);
 }
 
 .repo[data-highlight="true"]{
-    transition: 0.5s;
     color: var(--jet);
-    background-color: var(--syracuse-red-orange);
+    background-color: var(--prussian-blue);
+    border: 1px solid var(--syracuse-red-orange);
     box-shadow: 0 0 10px var(--shadow-color);
 
 }
 
 .repo[data-highlight="false"]{
-    transition: 0.5s;
     color: var(--jet);
     background-color: var(--prussian-blue);
 
 }
 
 .repo[data-highlight="true"] .name{
-    color: var(--prussian-blue);
+    color: var(--syracuse-red-orange);
 }
 
-.repo[data-highlight="true"] .readme{
-    color: var(--prussian-blue);
-}
-
-.repo a:hover {
-    text-transform: uppercase;
+.readme-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    width: 100%;
+    height: 100%;
 }
 
 .readme {
-    color: var(--syracuse-red-orange);
+    position: relative;
+    bottom: 0px;
+    margin: 10px;
+    padding: 10px 0px;
+    width: 100%;
+    align-self: center;
+    text-align: center;
+    border: 1px solid var(--syracuse-red-orange);
+    border-radius: 10px;
+    background-color: var(--prussian-blue);
+    color: var(--jet) ;
+}
+
+.readme:hover {
+    transition: 0.3s;
+    color: var(--prussian-blue) !important;
+    background-color: var(--syracuse-red-orange) !important;
+    border-color: var(--syracuse-red-orange);
+    box-shadow: 0 0 10px var(--light-shadow-color);
+}
+
+.repo[data-highlight="true"] .readme{
+    background-color: var(--prussian-blue);
+    color: var(--xanthous);
 }
 
 /* Mobile */
 
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
     :root {
         --left-padding: 20px;
     }
@@ -247,7 +258,6 @@ header a:hover {
     }
 
     .repo {
-        width: 100%;
         margin: 5px 0;
     }
 }

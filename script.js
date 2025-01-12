@@ -36,10 +36,12 @@ async function fetchRepos() {
     // build the repo elements
     buildReposHTMLElement(repos).then(() => {
         // show language tags
-        showLanguageTags(languageTags);
+        showLanguageTags(languageTags);w
     
         // sort the repos
         sortRepos(default_sorting);
+
+       
     });
 
 }
@@ -99,15 +101,16 @@ async function buildReposHTMLElement(repos) {
         repoDiv.innerHTML = `
         <a class="name" href="${repo.html_url}" target="_blank">${repo.name}</a>
         <p class="description">${repo.description || ''}</p>
-        <p class="languages"><strong>Language:</strong> ${languageString}</p>
         <p class="updated_at"><strong>Updated:</strong> ${updated.toLocaleDateString()}</p>
         <p class="created_at"><strong>Created:</strong> ${created.toLocaleDateString()}</p>
-        <a class="readme" href="${readme}" target="_blank">Readme.md</a>
-        <br>
+        <p class="languages"><strong>Language:</strong> ${languageString}</p>
+        <div class="readme-container"> <a class="readme" href="${readme}" target="_blank">Readme.md</a></div>
         `;
-
+        
         // add div to the page
         reposContainer.appendChild(repoDiv);
+        
+       
 
         addLanguageTags(languages);
 
