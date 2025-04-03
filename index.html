@@ -5,19 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
+        <div class="header-info-wrapper">
         <a id="header-profile-link" href="" target="_blank"><h1 id="header-title"></h1></h1></a>
         <h2 id="header-location" class="header-info"></h2>
         <h3 id="header-num-repos" class="header-info"></h3>
-        
+        </div>
+        <div class="header-input-wrapper">
+        <label for="search-input" >Search GitHub username:</label>
+        <input type="text" id="search-input" placeholder="Enter a GitHub username" aria-label="Search GitHub username" value="krismakesstuff">
+        <button id="search-button" aria-label="Search GitHub username">Search</button>
+        </div>
     </header>
-    
+
     <div id="tags-container">
     </div>
-    
+
     <div id="repos-container"></div>
 
     <script src="script.js"></script>

@@ -9,6 +9,4 @@
 3. Access site in browser (If using VSCode, click "Go Live").
 
  ## TODO
- - add error handling
  - add more sorting and filtering options
- - add text input for username. Reload page with username on submit.
