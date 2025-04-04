@@ -1,7 +1,7 @@
 /* Color Palette */
 :root {
     --xanthous: #f1bb3cff;
-    --syracuse-red-orange: #E65314;
+    --syracuse-red-orange: #c23b01;
     --ou-crimson: #D72828;
     --prussian-blue: #002E47;
     --jet: #EDEDED;
@@ -16,7 +16,7 @@
 
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'); */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
 /* Global Reset & Base Styles */
@@ -48,6 +48,13 @@ body {
     background-color: var(--jet-gray);
 }
 
+
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
 header {
     background-color: var(--prussian-blue);
     padding-left: var(--left-padding);
@@ -58,27 +65,41 @@ header {
     display: flex;
     justify-content: space-between;
     gap: 20px;
+
 }
 
-/* Responsive Header Styles */
+.header-info-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  gap: 5px;
+  width: 60%;
+}
+
+.header-input-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  gap: 5px;
+  width: 30%;
+}
+
 @media screen and (max-width: 768px) {
   header {
-    flex-direction: column;
     align-items: flex-start;
-    gap: 5px;
+    gap: 10px;
   }
 
   .header-info-wrapper,
   .header-input-wrapper {
     width: 100% !important;
     margin-bottom: 10px;
-    justify-content: center !important;
-    align-items: center;
   }
 }
 
 button {
     font-family: var(--font);
+    gap: 5px;
 }
 
 #search-button {
@@ -88,7 +109,13 @@ button {
     cursor: pointer;
     font-size: 0.75rem;
     padding: 5px 15px;
+}
 
+#search-button:hover {
+    transition: 0.5s;
+    background-color: var(--jet) ;
+    color: var(--syracuse-red-orange) ;
+    /* box-shadow: 0 0 10px var(--shadow-color); */
 }
 
 #search-input {
@@ -97,12 +124,14 @@ button {
     border-radius: 5px;
     padding: 5px;
     font-size: 1em;
+
 }
 
 .header-input-wrapper label{
     color: var(--jet);
     font-size: 0.8rem;
     font-weight: 500;
+    text-align: right;
 }
 
 a {
@@ -118,26 +147,11 @@ p {
     margin: 0px;
 }
 
-.header-info-wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  gap: 5px;
-  width: 50%;
-}
 
-.header-input-wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-content: end;
-  gap: 5px;
-  width: 50%;
-}
 
 #header-title {
     color: var(--jet);
-    margin: 0px 10px;
+    line-height: 1.6rem;
 }
 
 #header-subtitle {
@@ -147,20 +161,23 @@ p {
 
 .header-info {
     color: var(--ou-crimson);
-    margin: 0px 10px;
+
 }
 
 #header-location {
     color: var(--syracuse-red-orange);
-    margin: 0px 10px;
-    font-size: 0.85rem;
+
+    font-size: 0.9rem;
+    line-height: 1.4rem;
+
     font-weight: 500;
 }
 
 #header-num-repos{
     color: var(--jet);
-    margin-top: 5px;
     font-size: 0.8rem;
+    line-height: 1.1rem;
+
     font-weight: 500;
 }
 
@@ -171,36 +188,45 @@ p {
 
 #tags-container {
     display: flex;
+    flex-wrap: wrap;
     justify-content: left;
     gap: 10px;
     padding-left: var(--left-padding);
     padding-right: var(--left-padding);
     border-width: 0px;
     padding-top: 10px;
-
+    padding-bottom: 10px;
+    background-color: var(--syracuse-red-orange)
 }
 
 .language-tag-button {
     background-color: var(--prussian-blue);
     color: var(--yellow);
     border-radius: 5px;
-    padding: 10px;
+    padding: 5px 10px;
     cursor: pointer;
     font-size: 1em;
-    margin: 5px;
     /* box-shadow: 0 0 5px var(--shadow-color);    */
 }
 
-.language-tag-button:hover {
+/* .language-tag-button:hover {
     transition: 0.5s;
     background-color: var(--prussian-blue) ;
     color: var(--xanthous) ;
-    box-shadow: 0 0 10px var(--shadow-color);
+    /* box-shadow: 0 0 10px var(--shadow-color); */
+
+
+.language-tag-button[data-active]:hover {
+    background-color: var(--syracuse-red-orange) !important;
+    /* color: var(--prussian-blue) !important; */
+    border-color: var(--syracuse-red-orange) !important;
+    box-shadow: 0 0 10px var(--light-shadow-color);
+    transition: 0.3s;
 }
 
 .language-tag-button[data-active="true"] {
-    color: var(--syracuse-red-orange);
-    border-color: var(--syracuse-red-orange);
+    color: var(--xanthous);
+    border-color: var(--xanthous);
 }
 
 .language-tag-button[data-active="false"] {
@@ -228,14 +254,10 @@ p {
     box-shadow: 0 0 5px var(--shadow-color);
 }
 .repo .name{
-  font-size: 1rem;
-  font-weight: 800;
-  text-align: center;
-  padding: 5px 10px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: left;
   color: var(--jet);
-
-  /* Remove text-overflow and white-space properties */
-  /* Allow text to wrap naturally */
   word-wrap: break-word;
   overflow-wrap: break-word;
   hyphens: auto;
@@ -264,8 +286,9 @@ p {
 .repo[data-highlight="true"]{
     color: var(--jet);
     background-color: var(--prussian-blue);
-    border: 1px solid var(--syracuse-red-orange);
+    border: 2px solid var(--xanthous);
     box-shadow: 0 0 10px var(--shadow-color);
+    transition: 0.3s;
 
 }
 
@@ -276,7 +299,7 @@ p {
 }
 
 .repo[data-highlight="true"] .name{
-    color: var(--syracuse-red-orange);
+    color: var(--xanthous);
 }
 
 .readme-container {
@@ -295,7 +318,7 @@ p {
     width: 100%;
     align-self: center;
     text-align: center;
-    border: 1px solid var(--syracuse-red-orange);
+    border: 2px solid var(--syracuse-red-orange);
     border-radius: 10px;
     background-color: var(--prussian-blue);
     color: var(--jet) ;
@@ -303,7 +326,7 @@ p {
 
 .readme:hover {
     transition: 0.3s;
-    color: var(--prussian-blue) !important;
+    /* color: var(--prussian-blue) !important; */
     background-color: var(--syracuse-red-orange) !important;
     border-color: var(--syracuse-red-orange);
     box-shadow: 0 0 10px var(--light-shadow-color);
@@ -332,15 +355,19 @@ p {
     }
 
     #tags-container {
-        flex-wrap: wrap;
+
+        gap: 5px;
         padding-left: var(--left-padding);
         padding-right: var(--left-padding);
-        padding-bottom: 5px;
+        padding-bottom: 7px;
+        padding-top: 7px;
     }
 
 
     .language-tag-button {
-        margin-bottom: 5px;
+        font-size: 0.8em;
+        padding: 5px;
+
     }
 
     #repos-container {

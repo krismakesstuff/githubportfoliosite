@@ -137,96 +137,102 @@ function addLanguageTags(languages) {
 
 // sort the repos by the selected sorting
 function sortRepos(sorting) {
+  // Store current scroll position
+  const scrollPosition = window.scrollY;
 
-    let reposContainer = document.getElementById('repos-container');
-    const repos = document.getElementsByClassName('repo');
-    const reposArray = Array.from(repos);
+  let reposContainer = document.getElementById('repos-container');
+  const repos = document.getElementsByClassName('repo');
+  const reposArray = Array.from(repos);
 
-    if(sorting === 'updated_at') {
-        console.log('Sorting by updated_at');
-        reposArray.sort((a, b) => {
-            let aText = a.querySelector('.updated_at').innerText;
-            let bText = b.querySelector('.updated_at').innerText;
-            return new Date(aText) > new Date(bText) ? -1 : 1;
-        });
-    }
-    else if(sorting === 'created_at') {
-        console.log('Sorting by created_at');
-        reposArray.sort((a, b) => {
-            let aText = a.querySelector('.created_at').innerText;
-            let bText = b.querySelector('.created_at').innerText;
-            return new Date(aText) > new Date(bText) ? -1 : 1;
-        });
-    }
-    else if(languageTags.includes(sorting)) {
-        console.log('Sorting by language: ' + sorting);
+  if(sorting === 'updated_at') {
+    console.log('Sorting by updated_at');
+    reposArray.sort((a, b) => {
+      let aText = a.querySelector('.updated_at').innerText;
+      let bText = b.querySelector('.updated_at').innerText;
+      return new Date(aText) > new Date(bText) ? -1 : 1;
+    });
+  }
+  else if(sorting === 'created_at') {
+    console.log('Sorting by created_at');
+    reposArray.sort((a, b) => {
+      let aText = a.querySelector('.created_at').innerText;
+      let bText = b.querySelector('.created_at').innerText;
+      return new Date(aText) > new Date(bText) ? -1 : 1;
+    });
+  }
+  else if(languageTags.includes(sorting)) {
+    console.log('Sorting by language: ' + sorting);
 
-        // sort repos by language
-        reposArray.sort((a, b) => {
-            let aResult = a.querySelector('.languages').innerText.includes(sorting) ? -1 : 1;
-            return aResult;
-        });
-
-        // sort repos by updated_at only if they have the same language as the sorting
-        reposArray.sort((a, b) => {
-            if(a.querySelector('.languages').innerText.includes(sorting) && b.querySelector('.languages').innerText.includes(sorting)){
-                let aText = a.querySelector('.updated_at').innerText;
-                let bText = b.querySelector('.updated_at').innerText;
-                return new Date(aText) > new Date(bText) ? -1 : 1;
-            }
-        });
-
-    }
-
-    // First, mark all elements with a position before reordering
-    reposArray.forEach((repo, index) => {
-      const rect = repo.getBoundingClientRect();
-      repo.dataset.oldLeft = rect.left;
-      repo.dataset.oldTop = rect.top;
+    // sort repos by language
+    reposArray.sort((a, b) => {
+      let aResult = a.querySelector('.languages').innerText.includes(sorting) ? -1 : 1;
+      return aResult;
     });
 
-    // clear the container and append in new order
-    reposContainer.innerHTML = '';
-    for (const repo of reposArray) {
-      reposContainer.appendChild(repo);
-
-      // Force a reflow to calculate new positions
-      repo.offsetHeight;
-    }
-
-    // Animate from old position to new position
-    reposArray.forEach((repo) => {
-      const oldLeft = parseFloat(repo.dataset.oldLeft);
-      const oldTop = parseFloat(repo.dataset.oldTop);
-      const newRect = repo.getBoundingClientRect();
-
-      // Create the animation using FLIP technique
-      repo.style.transition = 'none';
-      repo.style.transform = `translate(${oldLeft - newRect.left}px, ${oldTop - newRect.top}px)`;
-
-      // Force reflow
-      repo.offsetHeight;
-
-      // Start animation
-      repo.style.transition = 'transform 0.5s ease-out';
-      repo.style.transform = 'translate(0, 0)';
-
-      // Clean up
-      setTimeout(() => {
-        repo.style.transition = '';
-        repo.style.transform = '';
-        delete repo.dataset.oldLeft;
-        delete repo.dataset.oldTop;
-      }, 500);
+    // sort repos by updated_at only if they have the same language as the sorting
+    reposArray.sort((a, b) => {
+      if(a.querySelector('.languages').innerText.includes(sorting) && b.querySelector('.languages').innerText.includes(sorting)){
+        let aText = a.querySelector('.updated_at').innerText;
+        let bText = b.querySelector('.updated_at').innerText;
+        return new Date(aText) > new Date(bText) ? -1 : 1;
+      }
     });
+  }
+
+  // First, mark all elements with a position before reordering
+  reposArray.forEach((repo, index) => {
+    const rect = repo.getBoundingClientRect();
+    repo.dataset.oldLeft = rect.left;
+    repo.dataset.oldTop = rect.top;
+  });
+
+  // clear the container and append in new order
+  reposContainer.innerHTML = '';
+  for (const repo of reposArray) {
+    reposContainer.appendChild(repo);
+
+    // Force a reflow to calculate new positions
+    repo.offsetHeight;
+  }
+
+  // Animate from old position to new position
+  reposArray.forEach((repo) => {
+    const oldLeft = parseFloat(repo.dataset.oldLeft);
+    const oldTop = parseFloat(repo.dataset.oldTop);
+    const newRect = repo.getBoundingClientRect();
+
+    // Create the animation using FLIP technique
+    repo.style.transition = 'none';
+    repo.style.transform = `translate(${oldLeft - newRect.left}px, ${oldTop - newRect.top}px)`;
+
+    // Force reflow
+    repo.offsetHeight;
+
+    // Start animation
+    repo.style.transition = 'transform 0.5s ease-out';
+    repo.style.transform = 'translate(0, 0)';
+
+    // Clean up
+    setTimeout(() => {
+    repo.style.transition = '';
+    repo.style.transform = '';
+    delete repo.dataset.oldLeft;
+    delete repo.dataset.oldTop;
+    }, 500);
+  });
+
+  // Restore scroll position
+  window.scrollTo({
+    top: scrollPosition
+  });
 }
 
 // make a grid of buttons for each language in languageTags
 function showLanguageTags(languageTags) {
 
     let tagsContainer = document.getElementById('tags-container');
-    let languageTagsDiv = document.createElement('div');
-    languageTagsDiv.className = 'language-tags';
+    // let languageTagsDiv = document.createElement('div');
+    // languageTagsDiv.className = 'language-tags';
 
     for (const language of languageTags) {
 
@@ -260,10 +266,10 @@ function showLanguageTags(languageTags) {
             }
         });
         // add button to the page
-        languageTagsDiv.appendChild(languageButton);
+        // languageTagsDiv.appendChild(languageButton);
+        // add language tags to the page
+        tagsContainer.appendChild(languageButton);
     }
-    // add language tags to the page
-    tagsContainer.appendChild(languageTagsDiv);
 }
 
 // used by language tab buttons to highlight repos with the selected language
