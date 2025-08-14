@@ -1,7 +1,7 @@
 /* Color Palette */
 :root {
     --xanthous: #f1bb3cff;
-    --syracuse-red-orange: #c23b01;
+    --syracuse-red-orange: #E65314;
     --ou-crimson: #D72828;
     --prussian-blue: #002E47;
     --jet: #EDEDED;
@@ -61,7 +61,6 @@ header {
     padding-right: var(--left-padding);
     padding-top: 20px;
     padding-bottom: 20px;
-    align-items: left;
     display: flex;
     justify-content: space-between;
     gap: 20px;
@@ -84,8 +83,9 @@ header {
   width: 30%;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 450px) {
   header {
+    flex-direction: column;
     align-items: flex-start;
     gap: 10px;
   }
